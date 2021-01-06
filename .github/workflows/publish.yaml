@@ -22,11 +22,8 @@ jobs:
       - name: Cleanup
         run: rm -rf .github README.md
 
-      - name: Install Zip
-        uses: montudor/action-zip@v0.1.1
-
-      - name: Zip
-        run: zip -qq -r ../data.zip .
+      - name: Archive
+        run: tar czf ../data.tar.gz .
 
       - name: Publish to Codio
         uses: codio/codio-assignment-publish-action@master
@@ -35,6 +32,6 @@ jobs:
           course-id: 5d2627e6b643887c072eea40
           assignment-id: 03f2a5640b3d449d91bda277b8b01895
           domain: test1-codio.com
-          zip: ../data.zip
+          zip: ../data.tar.gz
           changelog: ${{ github.event.head_commit.message }}
 
