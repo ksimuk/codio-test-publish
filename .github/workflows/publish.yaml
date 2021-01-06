@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Log into Codio
         id: codio-login
-        uses: codio/codio-auth-action
+        uses: codio/codio-auth-action@master
         with:
           client-id: ${{ secrets.CODIO_TEST1_CLIENT_ID }}
           secret-id: ${{ secrets.CODIO_TEST1_SECRET_ID }}
@@ -30,11 +30,12 @@ jobs:
           args: zip -qq -r data.zip source
 
       - name: Publish to Codio
-        uses: codio/codio-assignment-publish-action
+        uses: codio/codio-assignment-publish-action@master
         with:
           token: ${{ steps.codio-login.outputs.token }}
           course-id: 5d2627e6b643887c072eea40
           assignment-id: 03f2a5640b3d449d91bda277b8b01895
           domain: test1-codio.com
           zip: data.zip
+          changelog: ${{ github.event.head_commit.message }}
 
