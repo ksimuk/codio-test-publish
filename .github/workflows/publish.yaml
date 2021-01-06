@@ -24,10 +24,15 @@ jobs:
       - name: Cleanup
         run: rm -rf source/.github source/README.md
 
-      - name: Zip files
+      - name: Cleanup
+        run: ls source
+
+      - name: Install Zip
         uses: montudor/action-zip@v0.1.1
-        with:
-          args: zip -qq -r data.zip source
+
+      - name: Zip
+        run: zip -qq -r ../data.zip .
+        working-directory: source
 
       - name: Publish to Codio
         uses: codio/codio-assignment-publish-action@master
