@@ -22,10 +22,10 @@ jobs:
           path: source
 
       - name: Cleanup
-        run: rm -rf source/.github source/README.md
+        run: pwd; ls source
 
       - name: Cleanup
-        run: ls source
+        run: rm -rf source/.github source/README.md
 
       - name: Install Zip
         uses: montudor/action-zip@v0.1.1
