@@ -15,36 +15,12 @@ jobs:
       - name: Cleanup
         run: rm -rf .github README.md .git
 
-      - name: Archive
-        run: tar czf ../assignment.tar.gz . && mv ../assignment.tar.gz assignment.tar.gz
-
-      - name: Upload artifactory
-        uses: actions/upload-artifact@master
-        with:
-          name: assignment
-          path: assignment.tar.gz
-          retention-days: 2
-
-  publish:
-    needs: build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/download-artifact@master
-        with:
-          name: assignment
-
-      - name: Log into Codio
-        id: codio-login
-        uses: codio/codio-auth-action@master
-        with:
-          client-id: ${{ secrets.CODIO_DEMO_CLIENT_ID }}
-          secret-id: ${{ secrets.CODIO_DEMO_SECRET_ID }}
-
       - name: Publish to Codio
         uses: codio/codio-assignment-publish-action@master
         with:
-          token: ${{ steps.codio-login.outputs.token }}
+          client-id: ${{ secrets.CODIO_DEMO_CLIENT_ID }}
+          secret-id: ${{ secrets.CODIO_DEMO_SECRET_ID }}
           course-id: 004d0c98d345bfa262bfecdd9b510a0d
           assignment-id: dad1b5a4f6a3d5354047e9992ce4c346
-          zip: assignment.tar.gz
+          dir: ./
           changelog: ${{ github.event.head_commit.message }}
