@@ -12,9 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Cleanup
-        run: rm -rf .github README.md .git
-
       - name: Publish to Codio
         uses: codio/codio-assignment-publish-action@master
         with:
